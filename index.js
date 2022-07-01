@@ -25,7 +25,6 @@ async function run() {
 
     app.get("/task/:email", async (req, res) => {
       const email = req.params.email;
-      console.log(email);
       const result = await taskCollection.find({ email: email }).toArray();
       res.send(result);
     });
@@ -38,13 +37,13 @@ async function run() {
     // completedTask
     app.get("/completedTask/:email", async (req, res) => {
       const email = req.params.email;
-      console.log(email);
       const result = await completedTaskCollection.find({ email: email }).toArray();
       res.send(result);
     });
-    app.post("/completedTask", async (req, res) => {
-      const completedTask = req.body;
-      const result = await completedTaskCollection.insertOne(completedTask);
+    app.post("/completedTask/:id", async (req, res) => {
+      const id = req.params.id;
+      const query = { _id: ObjectId(id) };
+      const result = await completedTaskCollection.insertOne(query);
       res.send(result);
     });
 
