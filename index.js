@@ -40,9 +40,8 @@ async function run() {
       const result = await completedTaskCollection.find({ email: email }).toArray();
       res.send(result);
     });
-    app.post("/completedTask/:id", async (req, res) => {
-      const id = req.params.id;
-      const query = { _id: ObjectId(id) };
+    app.post("/completedTask", async (req, res) => {
+      const query = req.body;
       const result = await completedTaskCollection.insertOne(query);
       res.send(result);
     });
